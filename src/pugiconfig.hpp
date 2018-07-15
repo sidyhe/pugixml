@@ -24,10 +24,10 @@
 // #define PUGIXML_NO_XPATH
 
 // Uncomment this to disable STL
-// #define PUGIXML_NO_STL
+#define PUGIXML_NO_STL
 
 // Uncomment this to disable exceptions
-// #define PUGIXML_NO_EXCEPTIONS
+#define PUGIXML_NO_EXCEPTIONS
 
 // Set this to control attributes for public classes/functions, i.e.:
 // #define PUGIXML_API __declspec(dllexport) // to export all public symbols from DLL
@@ -47,6 +47,18 @@
 // #define PUGIXML_HAS_LONG_LONG
 
 #endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
+// kcrt
+double __cdecl kstrtod(char const* _String, char** _EndPtr);
+int __cdecl ksprintf(char* const s, size_t const sz, char const* const f, ...);
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 
 /**
  * Copyright (c) 2006-2016 Arseny Kapoulkine

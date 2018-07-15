@@ -4541,7 +4541,7 @@ PUGI__NS_BEGIN
 	#ifdef PUGIXML_WCHAR_MODE
 		return wcstod(value, 0);
 	#else
-		return strtod(value, 0);
+		return kstrtod(value, 0);
 	#endif
 	}
 
@@ -4550,7 +4550,7 @@ PUGI__NS_BEGIN
 	#ifdef PUGIXML_WCHAR_MODE
 		return static_cast<float>(wcstod(value, 0));
 	#else
-		return static_cast<float>(strtod(value, 0));
+		return static_cast<float>(kstrtod(value, 0));
 	#endif
 	}
 
@@ -4626,7 +4626,7 @@ PUGI__NS_BEGIN
 	PUGI__FN bool set_value_convert(String& dest, Header& header, uintptr_t header_mask, float value)
 	{
 		char buf[128];
-		sprintf(buf, "%.9g", value);
+		ksprintf(buf, _countof(buf), "%.9g", value);
 
 		return set_value_ascii(dest, header, header_mask, buf);
 	}
@@ -4635,7 +4635,7 @@ PUGI__NS_BEGIN
 	PUGI__FN bool set_value_convert(String& dest, Header& header, uintptr_t header_mask, double value)
 	{
 		char buf[128];
-		sprintf(buf, "%.17g", value);
+		ksprintf(buf, _countof(buf), "%.17g", value);
 
 		return set_value_ascii(dest, header, header_mask, buf);
 	}
@@ -4927,7 +4927,7 @@ PUGI__NS_BEGIN
 	}
 #endif
 
-#if defined(PUGI__MSVC_CRT_VERSION) || defined(__BORLANDC__) || (defined(__MINGW32__) && (!defined(__STRICT_ANSI__) || defined(__MINGW64_VERSION_MAJOR)))
+#if 0
 	PUGI__FN FILE* open_file_wide(const wchar_t* path, const wchar_t* mode)
 	{
 		return _wfopen(path, mode);
@@ -8048,7 +8048,7 @@ PUGI__NS_BEGIN
 	}
 
 	// gets mantissa digits in the form of 0.xxxxx with 0. implied and the exponent
-#if defined(PUGI__MSVC_CRT_VERSION) && PUGI__MSVC_CRT_VERSION >= 1400 && !defined(_WIN32_WCE)
+#if 0
 	PUGI__FN void convert_number_to_mantissa_exponent(double value, char* buffer, size_t buffer_size, char** out_mantissa, int* out_exponent)
 	{
 		// get base values
@@ -8066,7 +8066,7 @@ PUGI__NS_BEGIN
 	PUGI__FN void convert_number_to_mantissa_exponent(double value, char* buffer, size_t buffer_size, char** out_mantissa, int* out_exponent)
 	{
 		// get a scientific notation value with IEEE DBL_DIG decimals
-		sprintf(buffer, "%.*e", DBL_DIG, value);
+		ksprintf(buffer, buffer_size, "%.*e", DBL_DIG, value);
 		assert(strlen(buffer) < buffer_size);
 		(void)!buffer_size;
 
@@ -8200,7 +8200,7 @@ PUGI__NS_BEGIN
 	#ifdef PUGIXML_WCHAR_MODE
 		return wcstod(string, 0);
 	#else
-		return strtod(string, 0);
+		return kstrtod(string, 0);
 	#endif
 	}
 
